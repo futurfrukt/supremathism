@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import './index.css';
 
-export const getRandomInt = (min, max) => min + Math.floor(Math.random() * (max - min));
+export const rand = (min, max) => min + Math.floor(Math.random() * (max - min));
 
 const Ship = () => {
   return <div className="ship">
