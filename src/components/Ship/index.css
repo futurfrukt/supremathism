@@ -15,7 +15,9 @@
 }
 
 .ship div {
+    cursor: crosshair;
     position: absolute;
+    transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .ship > div:after {
     display: block;
@@ -29,8 +31,8 @@
 
 .ship__cab {
     top: 0;
-    left: 0;
-    width: 220px;
+    left: 44px;
+    width: 160px;
     height: 100%;
     background: rgba(0, 100, 255, 0.5);
     box-shadow: 0 0 0 2px rgba(0, 100, 255, 0.7);
@@ -78,7 +80,7 @@
 
 .ship__wing {
     top: 90px;
-    left: 20px;
+    left: 0px;
     right: 20px;
     height: 50px;
     background: rgba(25, 255, 0, 0.5);
@@ -90,31 +92,19 @@
 }
 
 @keyframes swing {
-    0% {
+    0%, 100% {
         transform: scale(0.5);
     }
     40% {
-        transform: scale(0.49) translateY(6px);
-    }
-    100% {
-        transform: scale(0.5);
+        transform: scale(0.499) translateY(9px);
     }
 }
 
 @keyframes flame {
-    0% {
+    0%, 50%, 100% {
         transform: scaleX(0.5) rotate(45deg);
     }
-    20% {
+    20%, 70% {
         transform: scaleX(0.5) scaleY(1.2) translateY(8px) rotate(45deg)
-    }
-    50% {
-        transform: scaleX(0.5) rotate(45deg);
-    }
-    70% {
-        transform: scaleX(0.5) scaleY(1.3) translateY(9px) rotate(45deg)
-    }
-    100% {
-        transform: scaleX(0.5) rotate(45deg);
     }
 }
