@@ -16,7 +16,6 @@ const toggleFullscreen = () => {
 
 const App = () => {
   const [paused, setPaused] = useState(false);
-
   const togglePaused = useCallback(() => {
     setPaused(!paused);
   }, [paused, setPaused]);
@@ -31,9 +30,36 @@ const App = () => {
     return () => document.removeEventListener('click', toggleFullscreen, { passive: true });
   }, [IS_FULLSCREEN_AVAILABLE]);
 
+  const [zoom, setZoom] = useState('');
+  const zoomIn = useCallback(() => {
+    setZoom(zoom === 'out' ? '' : 'in');
+  }, [zoom, setZoom]);
+  const zoomOut = useCallback(() => {
+    setZoom(zoom === 'in' ? '' : 'out');
+  }, [zoom, setZoom]);
+
+  const handleKeyDown = useCallback(({ code }) => {
+    if (code === 'ArrowUp') {
+      zoomIn();
+    }
+    if (code === 'ArrowDown') {
+      zoomOut();
+    }
+  }, [zoomIn, zoomOut]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown, { passive: true });
+    return () => document.removeEventListener('keydown', handleKeyDown, { passive: true });
+  }, [zoomIn, zoomOut]);
+
   return (<div className={cls("app", { 'paused': paused })}>
-    <Sky/>
-    <Ship/>
+    <div className={cls('scene', {
+      'scene_in': zoom === 'in',
+      'scene_out': zoom === 'out',
+    })}>
+      <Sky/>
+      <Ship/>
+    </div>
   </div>)
 };
 

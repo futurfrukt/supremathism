@@ -3,8 +3,11 @@ import './index.css';
 
 export const rand = (min, max) => min + Math.floor(Math.random() * (max - min));
 
+export const randScale = () => rand(5, 15) / 10;
+
 export const randStyle = (rest) => ({
-  transform: `translate3d(${rand(-80, 80)}vw, ${rand(-80, 80)}vh, 0) rotate(${rand(-180, 180)}deg)`,
+  transform: `scale3d(${randScale()}, ${randScale()}, 1) translate3d(${rand(-80, 80)}vw, ${rand(-80, 80)}vh, 0) rotate(${rand(-180, 180)}deg)`,
+  animationName: 'none',
   ...rest
 })
 
@@ -12,9 +15,7 @@ export const randStyles = () => ({
   cab: randStyle(),
   engine_left: randStyle(),
   engine_right: randStyle(),
-  flame_right: randStyle({
-    animationName: 'none'
-  }),
+  flame_right: randStyle(),
   wing: randStyle(),
 });
 

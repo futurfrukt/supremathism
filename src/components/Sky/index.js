@@ -48,8 +48,9 @@ const Sky = () => {
 
   useEffect(() => {
     if (planetsCount < MAX_PLANETS_COUNT) {
-      console.log('add planet', planetsCount);
-      sleep(rand(100, 2000)).then(() => setPlanetsCount(planetsCount + 1));
+      const delay = planetsCount < 5 ? 0 : rand(100, 2000);
+      console.log('add planet', planetsCount, `${delay}ms`);
+      sleep(delay).then(() => setPlanetsCount(planetsCount + 1));
     }
     return () => {};
   }, [planetsCount, setPlanetsCount])

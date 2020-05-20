@@ -28,18 +28,18 @@
 
 @keyframes flow-spin-left {
     0% {
-        transform: translateY(calc(-100vh - 200px)) rotate(180deg);
+        transform: translateY(-300px) rotate(180deg);
     }
     100% {
-        transform: translateY(calc(100vh + 200px)) rotate(-180deg);
+        transform: translateY(calc(100vh + 300px)) rotate(-180deg);
     }
 }
 @keyframes flow-spin-right {
     0% {
-        transform: translateY(calc(-100vh - 200px)) rotate(-180deg);
+        transform: translateY(-300px) rotate(-180deg);
     }
     100% {
-        transform: translateY(calc(100vh + 200px)) rotate(180deg);
+        transform: translateY(calc(100vh + 300px)) rotate(180deg);
     }
 }
 
