@@ -1,0 +1,18 @@
+/**
+ - https://codepen.io/saransh/pen/BKJun
+ - https://codepen.io/WebSonick/pen/vjmgu
+ */
+
+.planets {
+    opacity: 0.9;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+}
+
+.planets__inner {
+    width: 100%;
+    height: 100%;
+}

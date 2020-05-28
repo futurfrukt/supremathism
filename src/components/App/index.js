@@ -1,8 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import './index.css';
-import Ship from '../Ship';
-import Sky from '../Sky';
+// import Ship from '../Ship';
 import cls from "classnames";
+import Planets from '../Planets';
+
+// https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture
+// https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Taking_still_photos
 
 export const IS_FULLSCREEN_AVAILABLE = Boolean(document.exitFullscreen && document.documentElement && document.documentElement.requestFullscreen);
 
@@ -19,16 +22,6 @@ const App = () => {
   const togglePaused = useCallback(() => {
     setPaused(!paused);
   }, [paused, setPaused]);
-
-  useEffect(() => {
-    document.addEventListener('click', togglePaused, { passive: true });
-    return () => document.removeEventListener('click', togglePaused, { passive: true });
-  }, [togglePaused]);
-
-  useEffect(() => {
-    document.addEventListener('dblclick', toggleFullscreen, { passive: true });
-    return () => document.removeEventListener('click', toggleFullscreen, { passive: true });
-  }, [IS_FULLSCREEN_AVAILABLE]);
 
   const [zoom, setZoom] = useState('');
   const zoomIn = useCallback(() => {
@@ -57,8 +50,9 @@ const App = () => {
       'scene_in': zoom === 'in',
       'scene_out': zoom === 'out',
     })}>
-      <Sky/>
-      <Ship/>
+      <div className={'sky'} onClick={togglePaused} />
+      <Planets onClick={togglePaused} />
+      {/*<Ship/>*/}
     </div>
   </div>)
 };

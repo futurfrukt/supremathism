@@ -27,3 +27,12 @@
 .scene_out {
   transform: scale(0.5);
 }
+
+.sky {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
