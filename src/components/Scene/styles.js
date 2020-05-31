@@ -74,7 +74,7 @@ const randPosition = ({ size }) => `${rand(5, 95) - size/2}%`;
 
 export const randStyles = () => {
   const figure = rand(0, FIGURE_MAX);
-  const fill = FILLS.NEON; //rand(0, FILL_MAX);
+  const fill = rand(0, FILL_MAX);
   const size = rand(MIN_SIZE, MAX_SIZE);
   const [innerFill, outerFill] = randFillStyles[fill]({ size });
   const [innerFigure, outerFigure] = randFigureStyles[figure]({ size });
