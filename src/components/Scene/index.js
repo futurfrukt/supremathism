@@ -1,16 +1,15 @@
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useState, useMemo, useRef } from 'react';
 import './index.css';
 import range from 'lodash.range';
 import { emptyStyles, randStyles } from './styles';
 import Planet from './Planet';
-import sampleSize from 'lodash.samplesize';
 import { rand } from '../../utils';
 
 const PLANETS_COUNT = 11;
 const PLANETS_INDEX = range(0, PLANETS_COUNT);
 
 const PLANETS_VISIBLE_MIN = 2;
-const PLANETS_VISIBLE_MAX = 7;
+const PLANETS_VISIBLE_MAX = 6;
 
 const Scene = () => {
   const [iteration, setIteration] = useState(0);
@@ -21,12 +20,8 @@ const Scene = () => {
 
   const planets = useMemo(() => {
     const visibleCount = rand(PLANETS_VISIBLE_MIN, PLANETS_VISIBLE_MAX);
-    const visibleMap = sampleSize(PLANETS_INDEX, visibleCount).reduce((acc, index) => {
-      acc[index] = true;
-      return acc;
-    }, {});
-    const styles = PLANETS_INDEX.map((index) => visibleMap[index] ? randStyles() : emptyStyles());
-    console.log('generate planets', { iteration, visibleCount, visibleMap, styles });
+    const styles = PLANETS_INDEX.map((index) => index < visibleCount ? randStyles() : emptyStyles());
+    console.log('generate planets', { iteration, visibleCount, styles });
     return styles;
   }, [iteration]);
 

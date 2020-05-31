@@ -1,7 +1,7 @@
 import { rand, randCol } from '../../utils';
 
-const MIN_SIZE = 5;
-const MAX_SIZE = 40;
+const MIN_SIZE = 8;
+const MAX_SIZE = 38;
 
 const FIGURES = {
   CIRCLE: 0,
@@ -30,8 +30,9 @@ const FILLS = {
   NEON: 2,
   NEON_HOLE: 3,
   GLOW: 4,
+  GREY: 5,
 }
-const FILL_MAX = FILLS.GLOW;
+const FILL_MAX = FILLS.GREY;
 
 const randFillStyles = {
   [FILLS.FLAT]: ({ size }) => ([{
@@ -67,6 +68,12 @@ const randFillStyles = {
     }, {
       backgroundColor,
     }];
+  },
+  [FILLS.GREY]: ({ size }) => {
+    const a = rand(0, 10) / 10;
+    return [{
+      backgroundColor: `rgba(255, 255, 255, ${a})`
+    }];
   }
 };
 
@@ -81,7 +88,9 @@ export const randStyles = () => {
 
   const top = randPosition({ size });
   const left = randPosition({ size });
-  const transform = `rotate(${rand(-90, 90)}deg)`;
+  const transform = figure === FIGURES.CIRCLE
+    ? 'none'
+    : `rotate(${rand(-45, 45)}deg)`;
   return {
     meta: {
       figure,
