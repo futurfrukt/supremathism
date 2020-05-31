@@ -1,0 +1,74 @@
+:root {
+    --color: #8c8c8c;
+}
+
+.scene {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+}
+
+.scene .actions button {
+    margin: 0 6px;
+    color: var(--color);
+    background: transparent;
+    padding: 8px 12px;
+    border-radius: 18px;
+    border: 1px solid currentColor;
+    min-width: 86px;
+    outline: none;
+    user-select: none;
+}
+.scene .actions button:hover {
+    box-shadow: 0 0 16px 0 currentColor;
+}
+.scene .actions button:active {
+    background-color: currentColor;
+}
+
+.scene .frame {
+    position: relative;
+    color: var(--color);
+    border: 1px solid currentColor;
+    border-radius: 1px;
+    overflow: hidden;
+    animation: light-off 15s ease-in;
+}
+
+.scene .actions {
+    display: flex;
+}
+
+@media (orientation: landscape) {
+    .scene {
+        flex-direction: row;
+    }
+    .scene .frame {
+        width: 70vh;
+        height: 70vh;
+    }
+    .scene .actions {
+        margin-left: 15vh;
+    }
+}
+
+@media (orientation: portrait) {
+    .scene .frame {
+        width: 70vw;
+        height: 70vw
+    }
+    .scene .actions {
+        margin-top: 15vw;
+    }
+}
+
+@keyframes light-off {
+    0% {
+        box-shadow: 0 0 24px 0 currentColor;
+    }
+    100% {
+        box-shadow: none;
+    }
+}

@@ -1,26 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './index.css';
-import Ship from '../Ship';
-import Sky from '../Sky';
+import Scene from '../Scene';
+import { noop } from '../../utils';
 
 export const IS_FULLSCREEN_AVAILABLE = Boolean(document.exitFullscreen && document.documentElement && document.documentElement.requestFullscreen);
 
-const toggleFullscreen = () => {
+const toggleFullscreen = IS_FULLSCREEN_AVAILABLE ? () => {
   if (!document.fullscreenElement) {
     document.documentElement.requestFullscreen();
   } else {
     document.exitFullscreen();
   }
-};
+} : noop;
 
 const App = () => {
-  useEffect(() => {
-    document.addEventListener('dblclick', toggleFullscreen, { passive: true });
-  }, [IS_FULLSCREEN_AVAILABLE]);
-
-  return (<div className="app">
-    <Sky/>
-    <Ship/>
+  return (<div className={'app'} onDoubleClick={toggleFullscreen}>
+    <div className={'scene'}>
+      <Scene />
+    </div>
   </div>)
 };
 
