@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import './index.css';
 import Scene from '../Scene';
 import { noop } from '../../utils';

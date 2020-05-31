@@ -11,21 +11,32 @@
 }
 
 .scene .actions button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 24px;
     margin: 0 6px;
     color: var(--color);
     background: transparent;
-    padding: 8px 12px;
+    padding: 6px 12px;
     border-radius: 18px;
     border: 1px solid currentColor;
     min-width: 86px;
     outline: none;
     user-select: none;
 }
-.scene .actions button:hover {
+.scene .actions button:not(:disabled):hover {
     box-shadow: 0 0 16px 0 currentColor;
 }
 .scene .actions button:active {
     background-color: currentColor;
+}
+.scene .actions button svg {
+    width: 20px;
+    height: 20px;
+}
+.scene .actions button svg path {
+    fill: currentColor;
 }
 
 .scene .frame {
