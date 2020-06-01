@@ -13,6 +13,12 @@ const toggleFullscreen = IS_FULLSCREEN_AVAILABLE ? () => {
   }
 } : noop;
 
+/**
+ * TODO
+ * - галерея понравившихся работ: на лайк сохранять json, на деплой формировать индекс доступных картин
+ * - парные картины: сохранять переход из одного в другое состояние и показывать зацикленно
+ */
+
 const App = () => {
   return (<div className={'app'} onDoubleClick={toggleFullscreen}>
     <div className={'scene'}>

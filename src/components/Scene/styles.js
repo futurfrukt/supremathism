@@ -70,7 +70,7 @@ const randFillStyles = {
     }];
   },
   [FILLS.GREY]: ({ size }) => {
-    const a = rand(0, 10) / 10;
+    const a = rand(2, 10) / 10;
     return [{
       backgroundColor: `rgba(255, 255, 255, ${a})`
     }];
