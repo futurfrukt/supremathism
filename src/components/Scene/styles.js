@@ -1,4 +1,5 @@
-import { rand, randCol } from '../../utils';
+import { rand, randBool, randCol } from '../../utils';
+import { nanoid } from 'nanoid';
 
 const MIN_SIZE = 8;
 const MAX_SIZE = 38;
@@ -7,7 +8,7 @@ const FIGURES = {
   CIRCLE: 0,
   RECTANGLE: 1,
   TRIANGLE: 2,
-}
+};
 const FIGURE_MAX = FIGURES.RECTANGLE;
 
 const randFigureStyles = {
@@ -19,10 +20,10 @@ const randFigureStyles = {
     borderRadius: '50%',
   }]),
   [FIGURES.RECTANGLE]: ({ size }) => ([{}, {
-    height: `${size + rand(-size*0.95, size*0.95)}%`,
+    height: `${size + rand(-size * 0.95, size * 0.95)}%`,
     width: `${size}%`,
-  }])
-}
+  }]),
+};
 
 const FILLS = {
   FLAT: 0,
@@ -31,7 +32,7 @@ const FILLS = {
   NEON_HOLE: 3,
   GLOW: 4,
   GREY: 5,
-}
+};
 const FILL_MAX = FILLS.GREY;
 
 const randFillStyles = {
@@ -72,30 +73,56 @@ const randFillStyles = {
   [FILLS.GREY]: ({ size }) => {
     const a = rand(2, 10) / 10;
     return [{
-      backgroundColor: `rgba(255, 255, 255, ${a})`
+      backgroundColor: `rgba(255, 255, 255, ${a})`,
     }];
-  }
+  },
 };
 
-const randPosition = ({ size }) => `${rand(5, 95) - size/2}%`;
+const MOTIONS = {
+  NONE: 0,
+  ROTATE3D: 1,
+};
+const MOTION_MAX = MOTIONS.NONE;
+const randMotionStyle = {
+  [MOTIONS.NONE]: () => [],
+  [MOTIONS.ROTATE3D]: ({ id }) => {
+    const rotateX = randBool();
+    const rotateY = !rotateX;
+    const fixed = rand(-180, 180);
+    const direction = randBool() ? 360 : -360;
+    return [{
+      id,
+      from: `transform: rotateX(${rotateX ? 0 : fixed}deg) rotateY(${rotateY ? 0 : fixed}deg)`,
+      to: `transform: rotateX(${rotateX ? direction : fixed}deg) rotateY(${rotateY ? direction : fixed}deg)`,
+    }, `${id} ${rand(1, 16)}s linear infinite`];
+  },
+};
+
+const randPosition = ({ size }) => `${rand(5, 95) - size / 2}%`;
 
 export const randStyles = () => {
+  const id = nanoid();
+  const motion = rand(0, MOTION_MAX);
   const figure = rand(0, FIGURE_MAX);
   const fill = rand(0, FILL_MAX);
   const size = rand(MIN_SIZE, MAX_SIZE);
   const [innerFill, outerFill] = randFillStyles[fill]({ size });
+  const [keyframes, animation] = randMotionStyle[motion]({ size, id });
   const [innerFigure, outerFigure] = randFigureStyles[figure]({ size });
 
   const top = randPosition({ size });
   const left = randPosition({ size });
-  const transform = figure === FIGURES.CIRCLE
-    ? 'none'
+  const transform = true
+    ? `rotateX(${rand(-45, 45)}deg) rotateY(${rand(-45, 45)}deg)`
     : `rotate(${rand(-45, 45)}deg)`;
   return {
+    keyframes,
     meta: {
+      id,
       figure,
       fill,
       size,
+      motion,
     },
     inner: {
       ...innerFigure,
@@ -107,11 +134,12 @@ export const randStyles = () => {
       top,
       left,
       transform,
+      animation,
       ...outerFigure,
       ...outerFill,
     },
-  }
-}
+  };
+};
 
 export const emptyStyles = () => ({
   meta: {},

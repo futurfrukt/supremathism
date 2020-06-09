@@ -12,6 +12,7 @@
     "lodash.range": "^3.2.0",
     "lodash.shuffle": "^4.2.0",
     "lodash.throttle": "^4.1.1",
+    "nanoid": "^3.1.9",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"

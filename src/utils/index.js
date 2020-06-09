@@ -2,6 +2,8 @@ import shuffle from 'lodash.shuffle';
 
 export const rand = (min, max) => min + Math.floor(Math.random() * (max + 1 - min));
 
+export const randBool = () => Boolean(rand(0, 1));
+
 export const randCol = ({ opacity = (rand(5, 9) / 10) } = {}) => {
   const x = rand(0, 255);
   const y = rand(0, 255);

@@ -2,7 +2,20 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import cls from 'classnames';
 import './index.css';
 
-const Planet = ({ id, styles: { outer, inner, meta } }) => {
+const printKeyframes = (keyframes) => {
+  if (!keyframes) {
+    return '';
+  }
+  const { id, from, to } = keyframes;
+  return `
+    @keyframes ${id} {
+      0% { ${from} }
+      100% { ${to} }
+    }
+  `;
+}
+
+const Planet = ({ id, styles: { outer, inner, keyframes, meta } }) => {
   const [margins, setMargins] = useState({ marginLeft: 0, marginTop: 0 });
   const [startPosition, setStartPosition] = useState(undefined);
 
@@ -40,8 +53,18 @@ const Planet = ({ id, styles: { outer, inner, meta } }) => {
     return () => {
       document.removeEventListener('mouseup', onMouseUp, { passive: true });
       document.removeEventListener('mousemove', onMouseMove, { passive: true });
-    }
+    };
   }, [onMouseUp, onMouseMove]);
+
+  useEffect(() => {
+    const style = document.createElement('style');
+    document.head.insertAdjacentElement('beforeend', style);
+    style.innerHTML = printKeyframes(keyframes);
+    console.log('[[ keyframes', { keyframes, inner: style.innerHTML });
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [keyframes]);
 
   const outerStyle = useMemo(() => ({
     ...outer,
@@ -49,19 +72,16 @@ const Planet = ({ id, styles: { outer, inner, meta } }) => {
   }), [outer, margins]);
 
   return <div
-    data-id={id}
-    data-figure={meta.figure}
-    data-fill={meta.fill}
-    data-size={meta.size}
+    data-meta={JSON.stringify(meta)}
     style={outerStyle}
     onMouseDown={onMouseDown}
     className={cls('planet', {
-      'planet_active': startPosition
+      'planet_active': startPosition,
     })}
   >
-    <div style={inner} className={'planet__inner'} />
-  </div>
-}
+    <div style={inner} className={'planet__inner'}/>
+  </div>;
+};
 
 
 export default Planet;

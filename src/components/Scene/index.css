@@ -40,12 +40,13 @@
 }
 
 .scene .frame {
+    perspective: 60px;
     position: relative;
     color: var(--color);
     border: 1px solid currentColor;
     border-radius: 1px;
     overflow: hidden;
-    animation: light-off 15s ease-in;
+    animation: light-off 15s ease-in, perspective 4s ease-in-out infinite;
 }
 
 .scene .actions {
@@ -81,5 +82,14 @@
     }
     100% {
         box-shadow: none;
+    }
+}
+
+@keyframes perspective {
+    0%, 100% {
+        perspective: 260px;
+    }
+    50% {
+        perspective: 60px;
     }
 }
