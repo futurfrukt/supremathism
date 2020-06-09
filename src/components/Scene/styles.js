@@ -82,7 +82,7 @@ const MOTIONS = {
   NONE: 0,
   ROTATE3D: 1,
 };
-const MOTION_MAX = MOTIONS.NONE;
+const MOTION_MAX = MOTIONS.ROTATE3D;
 const randMotionStyle = {
   [MOTIONS.NONE]: () => [],
   [MOTIONS.ROTATE3D]: ({ id }) => {
@@ -112,7 +112,7 @@ export const randStyles = () => {
 
   const top = randPosition({ size });
   const left = randPosition({ size });
-  const transform = true
+  const transform = randBool() && motion !== MOTIONS.ROTATE3D
     ? `rotateX(${rand(-45, 45)}deg) rotateY(${rand(-45, 45)}deg)`
     : `rotate(${rand(-45, 45)}deg)`;
   return {

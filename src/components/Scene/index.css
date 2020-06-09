@@ -87,7 +87,7 @@
 
 @keyframes perspective {
     0%, 100% {
-        perspective: 260px;
+        perspective: 360px;
     }
     50% {
         perspective: 60px;
